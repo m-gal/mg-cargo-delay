@@ -1,0 +1,62 @@
+{
+    "instances": [
+        {
+            "weight_kg": [
+                850.0
+            ],
+            "ade_month": [
+                "FEB"
+            ],
+            "carrier_code": [
+                "UASI"
+            ],
+            "container_id_prefix": [
+                "MATU"
+            ],
+            "container_type_of_service": [
+                "CS"
+            ],
+            "place_of_receipt": [
+                "SHANGHAI,CN"
+            ],
+            "port_of_lading": [
+                "SHANGHAI"
+            ],
+            "port_of_unlading": [
+                "LONG BEACH CA"
+            ],
+            "vessel_name": [
+                "MANULANI"
+            ]
+        },
+        {
+            "weight_kg": [
+                13255.1
+            ],
+            "ade_month": [
+                "JAN"
+            ],
+            "carrier_code": [
+                "ZIMU"
+            ],
+            "container_id_prefix": [
+                "ZCSU"
+            ],
+            "container_type_of_service": [
+                "PP"
+            ],
+            "place_of_receipt": [
+                "NINGBO (ZJ)"
+            ],
+            "port_of_lading": [
+                "NINGPO"
+            ],
+            "port_of_unlading": [
+                "SAVANNAH GA"
+            ],
+            "vessel_name": [
+                "TIANJIN"
+            ]
+        }
+    ]
+}

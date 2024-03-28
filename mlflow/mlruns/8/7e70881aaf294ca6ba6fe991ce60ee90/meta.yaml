@@ -1,0 +1,15 @@
+artifact_uri: file:///D:/fishtail/projects/ft-bol-us-delay/mlflow/mlruns/8/7e70881aaf294ca6ba6fe991ce60ee90/artifacts
+end_time: 1675373178733
+entry_point_name: ''
+experiment_id: '8'
+lifecycle_stage: active
+name: ''
+run_id: 7e70881aaf294ca6ba6fe991ce60ee90
+run_uuid: 7e70881aaf294ca6ba6fe991ce60ee90
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1675360201745
+status: 3
+tags: []
+user_id: m-gal

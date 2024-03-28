@@ -1,0 +1,66 @@
+def looped_multioutput(
+    inputs,
+    encoded_features,
+    optimizer,
+    loss,
+    metrics,
+    print_summary=True,
+):
+    # You needs 'input' and 'encoded_features' as a lists
+    inputs_list = list(inputs.values())
+    encoded_features_list = list(encoded_features.values())
+
+    # Combine input features into a single tensor
+    all = tf.keras.layers.concatenate(encoded_features_list, name="all")
+    batch_1 = tf.keras.layers.BatchNormalization(name="btchNrm_1")(all)
+
+    # One shared lauers for two branches
+    dense_1 = tf.keras.layers.Dense(
+        units=1024,
+        activation="relu",
+        name="dense_1",
+    )(batch_1)
+    dense_2 = tf.keras.layers.Dense(
+        units=512,
+        activation="relu",
+        name="dense_2",
+    )(dense_1)
+    batch_2 = tf.keras.layers.BatchNormalization(name="btchNrm_2")(dense_2)
+
+    # Binary classification branch
+    out_proba_delay = tf.keras.layers.Dense(
+        units=1,
+        activation="sigmoid",
+        name="proba_delay",
+    )(batch_2)
+
+    # Multiclass classification branch
+    dense_3 = tf.keras.layers.Dense(
+        units=512,
+        activation="relu",
+        name="dense_3",
+    )(batch_2)
+    concat = tf.keras.layers.concatenate(
+        [dense_3, out_proba_delay], name="concat"
+    )
+    batch_3 = tf.keras.layers.BatchNormalization(name="btchNrm_3")(concat)
+    out_dpd_delay = tf.keras.layers.Dense(
+        units=6,
+        activation="softmax",
+        name="dpd_delay",
+    )(batch_3)
+
+    outputs = [out_proba_delay, out_dpd_delay]
+    model = tf.keras.Model(
+        inputs_list,
+        outputs,
+        name="looped_multioutput",
+    )
+    model.compile(optimizer, loss, metrics)
+
+    if print_summary:
+        print(model.summary(line_length=150))
+
+    model.reset_states()
+    return model
+

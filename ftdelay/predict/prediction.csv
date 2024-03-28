@@ -1,0 +1,2 @@
+,weight_kg,ade_month,carrier_code,container_id_prefix,container_type_of_service,place_of_receipt,port_of_lading,port_of_unlading,vessel_name,proba_delay,dpd_delay,dpd_classes
+0,[850.0],['FEB'],['UASI'],['MATU'],['CS'],"['SHANGHAI,CN']",['SHANGHAI'],['LONG BEACH CA'],['MANULANI'],[0.4787444472312927],"[0.45605671405792236, 0.5428952574729919, 0.0001441613130737096, 0.00021221564384177327, 0.0005598959396593273, 0.00013174983905628324]","['[00]', '[01-03]', '[04-07]', '[08-14]', '[15-21]', '[22+]']"

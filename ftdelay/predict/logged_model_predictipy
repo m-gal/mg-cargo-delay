@@ -1,0 +1,143 @@
+"""
+    Stub to do checking one-off prediction using the logged model.
+
+    @author: mikhail.galkin
+"""
+#%% Load libraries -------------------------------------------------------------
+import sys
+
+import json
+import mlflow
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+
+from sklearn.metrics import mean_absolute_error
+from pprint import pprint
+
+#%% Load project's stuff -------------------------------------------------------
+sys.path.extend([".", "./.", "././.", "../..", "../../.."])
+
+from ftdelay.config import DATA_PERIOD
+from ftdelay.config import LOGGED_MODEL
+from ftdelay.config import final_data_folder_path
+from ftdelay.config import mlflow_dir
+
+
+#%% Inference on new data ------------------------------------------------------
+def main(
+    income_data_file_name,
+    json_features_file_name,
+    logged_model,
+    TFmodel,
+    random_samples,
+):
+
+    # ## for testing only
+    # income_data_file_name = f"xpm_us_delay_test_{DATA_PERIOD}.csv.gz"
+    # json_features_file_name = f"xpm_us_delay_set_of_features_{DATA_PERIOD}.json"
+    # logged_model = "mlruns/8/5ba3fe1a46ac44c886c7debac90860a9/artifacts/model"
+    # TFmodel = True
+    # random_samples = 2
+
+    # ! Metadata for incoming data ---------------------------------------------
+    DATA_INCOME_FOLDER_PATH = final_data_folder_path
+    # JSON_INCOME_FOLDER_PATH = data_final_dir
+    DATA_INCOME_FILE_NAME = income_data_file_name
+    JSON_FEATURES_FILE_NAME = json_features_file_name
+    path_to_data = DATA_INCOME_FOLDER_PATH / DATA_INCOME_FILE_NAME
+    path_to_json = DATA_INCOME_FOLDER_PATH / JSON_FEATURES_FILE_NAME
+    path_to_mfmodel = (mlflow_dir / logged_model).__str__()
+    path_to_tfmodel = path_to_mfmodel + "\\data\\model"
+
+    if TFmodel:
+        # Load model in TF flavour
+        print(f"\nLoad logged model as a TensorFlow Model...")
+        model = tf.keras.models.load_model(path_to_tfmodel)
+    else:
+        # Load model as a PyFuncModel (MLFlow).
+        print(f"\nLoad logged model as a MLFlow Model...")
+        model = mlflow.pyfunc.load_model(
+            path_to_mfmodel, suppress_warnings=True
+        )
+
+    # Load the unseen test set as pd.DataFrame
+    print(f"Read unseen test data from {path_to_data} ...")
+    df = pd.read_csv(path_to_data)
+
+    # Get the dictionary of all the input features for NN.
+    print(f"Read features spec from {path_to_json} ...")
+    with open(path_to_json, "r") as f:
+        set_of_features = json.load(f)
+
+    # Get the targets features & classes from features dictionary
+    y_01 = set_of_features["type_y"]["binary"][0]
+    y_mc = list(set_of_features["type_y"]["multiclass"].keys())[0]
+    mclasses = set_of_features["type_y"]["multiclass"].get(y_mc)
+
+    # Get a random sample as pd.DataFrame
+    if random_samples:
+        sample = df.sample(random_samples)
+    else:
+        sample = df.loc[[41], :]
+    df_y = sample[set_of_features["y"]]
+
+    # Cast DF into DS
+    df_X = sample[set_of_features["x"]]
+    ds_X = tf.data.Dataset.from_tensor_slices(dict(df_X)).batch(8184)
+
+    # df_X.to_dict("r")
+
+    print(f"\nPredictioning ...")
+    pred = model.predict(ds_X)
+
+    pred_list = [arr.tolist() for arr in pred]
+    pred_list_t = np.array(pred_list, dtype="object").transpose().tolist()
+    pred_keys = ["proba_delay", "dpd_delay"]
+    target_dict = dict(zip(pred_keys, [["proba"], mclasses]))
+    pred_dicts = [dict(zip(pred_keys, x)) for x in pred_list_t]
+
+    # Get output dictionary
+    output = {
+        "target": target_dict,
+        "prediction": pred_dicts
+    }
+
+    # True labels -> Dictionary
+    true_01_list = [[x] for x in df_y[y_01].values]
+    true_mc_list = np.array([json.loads(x) for x in df_y[y_mc].values]).tolist()
+    true_list = [true_01_list, true_mc_list]
+    tru_list_t = np.array(true_list, dtype="object").transpose().tolist()
+    true_labels = [dict(zip(pred_keys, x)) for x in tru_list_t]
+
+    # Calculate performance
+    mae_01 = mean_absolute_error(true_01_list, pred_list[0])
+    mae_mc = mean_absolute_error(true_mc_list, pred_list[1])
+
+    # Print out
+    print(f"\nReal Values:")
+    for instances in true_labels:
+        print(instances)
+
+    print(f"\nPredicted Value:")
+    for instances in pred_dicts:
+        print(instances)
+
+    print(f"\nMean Absolute Error: Binary Class: <{y_01}>: {mae_01}")
+    print(f"Mean Absolute Error: Multi Class: <{y_mc}>: {mae_mc}")
+
+    return output
+
+
+#%% RUN ========================================================================
+if __name__ == "__main__":
+    income_data_file_name = f"xpm_us_delay_test_{DATA_PERIOD}.csv.gz"
+    json_features_file_name = f"xpm_us_delay_set_of_features_{DATA_PERIOD}.json"
+
+    output = main(
+        income_data_file_name=income_data_file_name,
+        json_features_file_name=json_features_file_name,
+        logged_model=LOGGED_MODEL,
+        TFmodel=True,
+        random_samples=2,  # integer or None for 42-th row prediction
+    )
