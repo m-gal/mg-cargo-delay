@@ -1,4 +1,4 @@
-artifact_location: file:///D:/fishtail/projects/ft-bol-us-delay/mlflow/mlruns/8
+artifact_location: file:///D:/dprojects/mgal-for-github/mg-cargo-delay/mlflow/mlruns/8
 experiment_id: '8'
 lifecycle_stage: active
 name: 'multioutput: final'
