@@ -19,10 +19,10 @@ from IPython.display import display
 #%% Load project's stuff -------------------------------------------------------
 sys.path.extend([".", "./.", "././.", "../..", "../../.."])
 
-from ftdelay.config import DATA_PERIOD
-from ftdelay.config import final_data_folder_path
-from ftdelay.config import data_final_dir
-from ftdelay.utils import timing
+from src/delay.config import DATA_PERIOD
+from src/delay.config import final_data_folder_path
+from src/delay.config import data_final_dir
+from src/delay.utils import timing
 
 
 #%% Custom funcs ---------------------------------------------------------------

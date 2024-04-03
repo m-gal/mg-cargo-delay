@@ -2,9 +2,9 @@
     Check the API with FastAPI
 
     1. Run ./app/main.py
-    2. Run from Terminal in ./ftdelay:
+    2. Run from Terminal in ./src/delay:
             >>> python app/check_api.py
-        or in ./ftdelay/app:
+        or in ./src/delay/app:
             >>> python check_api.py
 
     Open http://127.0.0.1:8000/docs.

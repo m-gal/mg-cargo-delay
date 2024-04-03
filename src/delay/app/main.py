@@ -7,9 +7,9 @@
     and :app indicates our FastAPI instance name.
             command: uvicorn {folder}.{module}:app --reload
 
-    open Terminal in the [./ftdelay] and run:
+    open Terminal in the [./src/delay] and run:
         >>> uvicorn app.main:app --reload
-        or in the [./ftdelay/app] and run:
+        or in the [./src/delay/app] and run:
             >>> uvicorn main:app --reload
     open http://127.0.0.1:8000/delay in browser
     open http://127.0.0.1:8000/docs in browser
@@ -82,9 +82,9 @@ MCLASSES = ["[00]", "[01-03]", "[04-07]", "[08-14]", "[15-21]", "[22+]"]
 print(f"\nLoad logged model as a TensorFlow Model...")
 print(f"{MODEL_PATH}")
 try:
-    model = tf.keras.models.load_model("././" + MODEL_PATH)
+    model = tf.keras.models.load_model("./././" + MODEL_PATH)
 except:
-    model = tf.keras.models.load_model("../../" + MODEL_PATH)
+    model = tf.keras.models.load_model("../../../" + MODEL_PATH)
 
 # Initializing a FastAPI App Instance
 app = FastAPI()

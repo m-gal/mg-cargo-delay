@@ -63,21 +63,21 @@ if gpus:
 #%% Load project's stuff -------------------------------------------------------
 sys.path.extend([".", "./.", "././.", "../..", "../../.."])
 
-from ftdelay.config import final_data_folder_path
-from ftdelay.config import data_final_dir
-from ftdelay.config import docs_dir
-from ftdelay.config import mlflow_tracking_uri
-from ftdelay.config import tensorboard_dir
-from ftdelay.config import temp_dir
+from src/delay.config import final_data_folder_path
+from src/delay.config import data_final_dir
+from src/delay.config import docs_dir
+from src/delay.config import mlflow_tracking_uri
+from src/delay.config import tensorboard_dir
+from src/delay.config import temp_dir
 
-from ftdelay.utils import timing
-from ftdelay.model._dl_utils import df_to_ds
-from ftdelay.model._dl_utils import create_model_inputs_and_features
+from src/delay.utils import timing
+from src/delay.model._dl_utils import df_to_ds
+from src/delay.model._dl_utils import create_model_inputs_and_features
 
-from ftdelay.model._dl_models import vanilla_multiclass
-from ftdelay.plots import plot_history_metrics
-from ftdelay.plots import plot_confusion_matrix
-from ftdelay.plots import plot_multiclass_roc
+from src/delay.model._dl_models import vanilla_multiclass
+from src/delay.plots import plot_history_metrics
+from src/delay.plots import plot_confusion_matrix
+from src/delay.plots import plot_multiclass_roc
 
 #%% Custom funcs ---------------------------------------------------------------
 

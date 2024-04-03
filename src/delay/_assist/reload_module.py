@@ -11,22 +11,22 @@ import inspect
 import importlib
 
 sys.path.extend([".", "./.", "././.", "../..", "../../.."])
-import ftdelay
+import src/delay
 
 #%% ------------------------------ CONFIG --------------------------------------
-import ftdelay.config
+import src/delay.config
 
-importlib.reload(ftdelay.config)
-from ftdelay.config import project_dir
-from ftdelay.config import final_data_folder_path
+importlib.reload(src/delay.config)
+from src/delay.config import project_dir
+from src/delay.config import final_data_folder_path
 
 print(project_dir)
 print(final_data_folder_path)
 
 #%% ------------------------------ UTILS ---------------------------------------
-import ftdelay.utils
+import src/delay.utils
 
-importlib.reload(ftdelay.utils)
-print(inspect.getsource(ftdelay.utils.pd_set_options))
+importlib.reload(src/delay.utils)
+print(inspect.getsource(src/delay.utils.pd_set_options))
 
 #%% -------------------------- UTILS SPECIAL -----------------------------------

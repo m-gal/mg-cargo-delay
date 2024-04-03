@@ -1,7 +1,7 @@
 """
     Script to deploy MLFlow Model in the Docker Container on the AWS SageMaker.
 
-    Run Terminal in the [./ftdelay/aws]
+    Run Terminal in the [./src/delay/aws]
     > python aws_deploy.py
 
     @author: mikhail.galkin

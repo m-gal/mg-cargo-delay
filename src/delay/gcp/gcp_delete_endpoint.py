@@ -14,8 +14,8 @@ import sys
 from google.cloud import aiplatform
 
 sys.path.extend([".", "./.", "././.", "../..", "../../.."])
-from ftdelay.config import GCP_PROJECT_ID
-from ftdelay.config import GCP_LOCATION
+from src/delay.config import GCP_PROJECT_ID
+from src/delay.config import GCP_LOCATION
 
 
 def delete_endpoint(

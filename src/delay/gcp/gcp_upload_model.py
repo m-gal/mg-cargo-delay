@@ -24,7 +24,7 @@ from pathlib import Path
 from google.cloud import storage
 
 sys.path.extend([".", "./.", "././.", "../..", "../../.."])
-from ftdelay.config import mlflow_tracking_uri
+from src/delay.config import mlflow_tracking_uri
 
 # Instantiates a client
 storage_client = storage.Client()

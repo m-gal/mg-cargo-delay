@@ -18,10 +18,10 @@ from pprint import pprint
 #%% Load project's stuff -------------------------------------------------------
 sys.path.extend([".", "./.", "././.", "../..", "../../.."])
 
-from ftdelay.config import DATA_PERIOD
-from ftdelay.config import LOGGED_MODEL
-from ftdelay.config import final_data_folder_path
-from ftdelay.config import mlflow_dir
+from src/delay.config import DATA_PERIOD
+from src/delay.config import LOGGED_MODEL
+from src/delay.config import final_data_folder_path
+from src/delay.config import mlflow_dir
 
 
 #%% Inference on new data ------------------------------------------------------

@@ -1,7 +1,7 @@
 """
     Script to make predictions with model deployed on AWS SageMaker.
 
-    Run Terminal in the [./ftdelay/aws]
+    Run Terminal in the [./src/delay/aws]
     > python aws_predict.py -f test_sample_2.json
         -f, --file : file name in the [./predict] folder with the input data saved in json format
 

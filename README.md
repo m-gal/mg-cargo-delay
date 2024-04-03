@@ -123,10 +123,10 @@ The model is the two-output neural net with a handful of text embedding layers.
 2. `> tensorboard --logdir tensorboard_logs`
 
 ### Workflow's sequence:
-1. ./ftdelay/data/process_data.py
-2. ./ftdelay/model/train_final_model_dl_multiout.py
-3. ./ftdelay/app/
-4. ./ftdelay/gcp/
+1. ./src/delay/data/process_data.py
+2. ./src/delay/model/train_final_model_dl_multiout.py
+3. ./src/delay/app/
+4. ./src/delay/gcp/
 
 ----
 ### Project's folders structure.
@@ -142,7 +142,7 @@ The model is the two-output neural net with a handful of text embedding layers.
 ├── mlflow           <- Place to track & keep models, its params & outputs.
 │   └── mlruns       <- Logged MLflow runs. Keeps models its params, metrics & artifacts.
 ├── tensorboard      <- Tensorflow training logs.
-├── ftdelay          <- Source code & scripts of this project.
+├── src/delay          <- Source code & scripts of this project.
 │   ├── _assist      <- Any types of helping scripts & code's snippets.
 │   ├── app          <- REST API client for model's application.
 │   ├── aws          <- Scripts to deploy & invoke model on AWS Sagemaker.
